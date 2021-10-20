@@ -1,0 +1,27 @@
+<% layout('/layouts/boilerplate.ejs') %>
+<h1>All Shoes</h1>
+<div>
+  <a href="shoes/new">Add Shoes</a>
+</div>
+<% for (let shoe of shoes) { %>
+<div class="card mb-3">
+  <div class="row">
+    <div class="col-md-4">
+      <img src="<%=shoe.images.length ? shoe.images[0].url :
+      "https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600.jpg"%>" alt=""
+        class="img-fluid h-100" style="object-fit:cover">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= shoe.title %></h5>
+        <p class="card-text"><%= shoe.description %></p>
+        <p class="card-text">
+          <small class="text-muted"> <%= shoe.location %> </small>
+        </p>
+        <a href="/shoes/<%=shoe.id%> " class="btn btn-primary">View <%=shoe.title%>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %>

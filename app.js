@@ -18,10 +18,13 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 
 const userRoutes = require('./routes/users');
+const shoesRoutes = require('./routes/shoes');
+const reviewsRoutes = require('./routes/reviews');
 
 const MongoStore = require('connect-mongo');
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/shoesdb';
+const dbUrl = 'mongodb://localhost:27017/shoesdb';
+// process.env.DB_URL ||
 mongoose.connect(dbUrl, {
    useNewUrlParser: true,
    useUnifiedTopology: true
@@ -41,6 +44,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(mongoSanitize());
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret';
 
@@ -125,6 +129,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/', userRoutes);
+app.use('/shoes', shoesRoutes);
+app.use('/shoes/:id/reviews', reviewsRoutes);
 
 app.get('/', (req, res) => {
    res.render('home');
