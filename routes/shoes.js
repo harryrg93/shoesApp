@@ -2,11 +2,7 @@ const express = require('express');
 const router = express.Router();
 const shoes = require('../controllers/shoes');
 const catchAsync = require('../utils/catchAsync');
-const {
-   isLoggedIn,
-   isAuthor,
-   validateCampground
-} = require('../utils/middleware');
+const { isLoggedIn, isAuthor, validateShoes } = require('../utils/middleware');
 const multer = require('multer');
 const { storage } = require('../cloudinary');
 const upload = multer({ storage });
@@ -14,14 +10,25 @@ const upload = multer({ storage });
 const ExpressError = require('../utils/ExpressError');
 const Shoes = require('../models/shoes');
 
+router.route('/').get(catchAsync(shoes.index)).post(
+   //isLoggedIn,
+   upload.array('image'),
+   //validateShoes,
+   catchAsync(shoes.createShoes)
+);
+
+router.get('/new', isLoggedIn, shoes.renderNewForm);
+
 router
-   .route('/')
-   .get(catchAsync(shoes.index))
-   .post(
+   .route('/:id')
+   .get(catchAsync(shoes.showShoes))
+   .put(
       isLoggedIn,
+      isAuthor,
       upload.array('image'),
-      validateCampground,
-      catchAsync(shoes.createCampground)
-   );
+      validateShoes,
+      catchAsync(shoes.updateShoes)
+   )
+   .delete(isLoggedIn, isAuthor, catchAsync(shoes.deleteShoes));
 
 module.exports = router;

@@ -103,7 +103,8 @@ app.use(
             'blob:',
             'data:',
             `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`, //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
-            'https://images.unsplash.com'
+            'https://images.unsplash.com',
+            'https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600.jpg'
          ],
          fontSrc: ["'self'", ...fontSrcUrls]
       }

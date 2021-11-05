@@ -1,0 +1,124 @@
+<% layout('/layouts/boilerplate.ejs') %>
+
+<h1 class="text-center">New Shoes</h1>
+<div class="col-md-6 offset-md-3">
+    <div class="card shadow">
+        <div class="card-body">
+            <form action="/shoes" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" name="shoes[title]" id="title" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="model">Model</label>
+                    <input class="form-control" type="text" name="shoes[model]" id="model" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="brand">Brand</label>
+                    <input class="form-control" type="text" name="shoes[brand]" id="brand" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="brand">Size(s)</label>
+                    <input class="form-control" type="text" name="shoes[size]" id="size" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Shoes Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="price-label">$</span>
+                        <input type="text" class="form-control" name="shoes[price]" placeholder="0.00" id="price"
+                            aria-label="Price" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" name="shoes[description]" id="description"
+                        required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Category(s)</label>
+                    <div class="form-check">
+                        <input name="shoes[categories]" class="form-check-input" type="checkbox" value="sport"
+                            id="cat-sport">
+                        <label class="form-check-label" for="cat-sport">
+                            Sport Shoes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input name="shoes[categories]" class="form-check-input" type="checkbox" value="formal"
+                            id="cat-formal">
+                        <label class="form-check-label" for="cat-formal">
+                            Formal Shoes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input name="shoes[categories]" class="form-check-input" type="checkbox" value="rest"
+                            id="cat-rest">
+                        <label class="form-check-label" for="cat-rest">
+                            Formal Shoes
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Color(s)</label>
+                    <div class="form-check">
+                        <input name="shoes[colors]" class="form-check-input" type="checkbox" value="black"
+                            id="cl-black">
+                        <label class="form-check-label" for="cl-black">
+                            Black
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input name="shoes[colors]" class="form-check-input" type="checkbox" value="white"
+                            id="cl-white">
+                        <label class="form-check-label" for="cl-white">
+                            White
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input name="shoes[colors]" class="form-check-input" type="checkbox" value="red" id="cl-red">
+                        <label class="form-check-label" for="cl-red">
+                            Red
+                        </label>
+                    </div>
+                </div>
+                <!-- <input type="checkbox" name="categories" value="bedroom">Bedroom<br>
+                <input type="checkbox" name="categories" value="kitchen">Kitchen<br> -->
+
+
+                <div class="mb-3">
+                    <label class="form-label">Choose Image(s)</label>
+                    <div class="custom-file">
+                        <input class="form-control custom-file-input" type="file" id="image" name="image" multiple>
+                        <label for="image" class="form-label custom-file-label"></label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success w-100">Add Shoes</button>
+                </div>
+            </form>
+            <a href="/shoes">All Shoes</a>
+        </div>
+    </div>
+
+</div>

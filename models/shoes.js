@@ -26,7 +26,7 @@ const ShoeSchema = new Schema({
    images: [ImageSchema],
    model: String,
    brand: String,
-   size: [Number],
+   size: String,
    colors: [String],
    price: Number,
    description: String,
@@ -40,7 +40,7 @@ const ShoeSchema = new Schema({
          ref: 'Review'
       }
    ],
-   category: [String]
+   categories: [String]
 });
 
 ShoeSchema.post('findOneAndDelete', async function (shoe) {

@@ -1,4 +1,4 @@
-const { campgroundSchema, reviewSchema } = require('../schemas.js');
+const { shoesSchema, reviewSchema } = require('../schemas.js');
 const ExpressError = require('../utils/ExpressError');
 const Shoes = require('../models/shoes');
 const Review = require('../models/review');
@@ -6,20 +6,14 @@ const Review = require('../models/review');
 module.exports.isLoggedIn = (req, res, next) => {
    const { id } = req.params;
    if (!req.isAuthenticated()) {
-      // req.session.returnTo = req.originalUrl;
-      // req.session.returnTo =
-      //   req.query._method === 'DELETE' ? `/campgrounds/${id}` : req.originalUrl;
-      // if (req.query._method === 'DELETE') {
-      //   req.session.returnTo = `/campgrounds/${id}`;
-      // }
       req.flash('error', 'you must be signed in');
       return res.redirect('/login');
    }
    next();
 };
 
-module.exports.validateCampground = (req, res, next) => {
-   const { error } = campgroundSchema.validate(req.body);
+module.exports.validateShoes = (req, res, next) => {
+   const { error } = shoesSchema.validate(req.body);
    if (error) {
       const msg = error.details.map((el) => el.message).join(',');
       throw new ExpressError(msg, 400);
@@ -30,10 +24,10 @@ module.exports.validateCampground = (req, res, next) => {
 
 module.exports.isAuthor = async (req, res, next) => {
    const { id } = req.params;
-   const campground = await Campground.findById(id);
-   if (!campground.author.equals(req.user._id)) {
+   const shoes = await Shoes.findById(id);
+   if (!shoes.author.equals(req.user._id)) {
       req.flash('error', 'You need permission to do that!');
-      return res.redirect(`/campgrounds/${id}`);
+      return res.redirect(`/shoes/${id}`);
    }
    next();
 };
