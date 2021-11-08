@@ -41,7 +41,7 @@ const seedDB = async () => {
             'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde voluptates dicta magni et nisi explicabo excepturi aperiam ducimus fugit accusamus accusantium ipsum obcaecati tempore maiores enim, officia facere non! Eos ab doloribus nulla. Eaque quo atque, animi quas, officia ex et deleniti quia, dolor quis commodi fuga voluptas magni aliquid?',
          price,
          brand: tempSample,
-         size: [38, 39, 40],
+         size: '38, 39, 40',
          colors: ['black', 'blue', 'white'],
          model: tempSample + random1000,
          category: ['tennis', 'outsite']

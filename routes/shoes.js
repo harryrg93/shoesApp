@@ -10,12 +10,15 @@ const upload = multer({ storage });
 const ExpressError = require('../utils/ExpressError');
 const Shoes = require('../models/shoes');
 
-router.route('/').get(catchAsync(shoes.index)).post(
-   //isLoggedIn,
-   upload.array('image'),
-   //validateShoes,
-   catchAsync(shoes.createShoes)
-);
+router
+   .route('/')
+   .get(catchAsync(shoes.index))
+   .post(
+      isLoggedIn,
+      upload.array('image'),
+      validateShoes,
+      catchAsync(shoes.createShoes)
+   );
 
 router.get('/new', isLoggedIn, shoes.renderNewForm);
 
