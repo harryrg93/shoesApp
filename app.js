@@ -145,8 +145,8 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
    const { statusCode = 500 } = err;
    if (!err.message) err.message = 'Something went wrong';
-   res.status(statusCode).render('error', { err });
    // req.flash('error', err.message);
+   req.flash('error', err.message);
    const redirecUrl = req.session.returnTo || '/shoes';
    delete req.session.returnTo;
    res.status(statusCode).redirect(redirecUrl);

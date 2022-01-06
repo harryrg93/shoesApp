@@ -20,7 +20,6 @@ module.exports.createShoes = async (req, res, next) => {
    shoes.author = req.user._id;
    await shoes.save();
    req.flash('success', 'Successfully made a new campgorund');
-   //res.send('hello');
    res.redirect(`/shoes/${shoes._id}`);
 };
 
@@ -42,4 +41,38 @@ module.exports.showShoes = async (req, res) => {
    }
 
    res.render('shoes/show', { shoes });
+};
+
+module.exports.renderEdit = async (req, res) => {
+   const { id } = req.params;
+   const shoes = await Shoes.findById(id);
+   if (!shoes) {
+      req.flash('error', 'Cannot find that shoes');
+      return res.redirect('/shoes');
+   }
+   res.render('shoes/edit', { shoes });
+};
+
+module.exports.updateShoes = async (req, res) => {
+   const { id } = req.params;
+   const shoes = await Shoes.findByIdAndUpdate(id, {
+      ...req.body.shoes
+   });
+   const imgs = req.files.map((f) => ({
+      url: f.path,
+      filename: f.filename
+   }));
+   shoes.images.push(...imgs);
+   await shoes.save();
+
+   if (req.body.deleteImages) {
+      for (let filename of req.body.deleteImages) {
+         await cloudinary.uploader.destroy(filename);
+      }
+      await shoes.updateOne({
+         $pull: { images: { filename: { $in: req.body.deleteImages } } }
+      });
+   }
+   req.flash('success', 'Successfully updated campgorund');
+   res.redirect(`/shoes/${shoes._id}`);
 };

@@ -48,10 +48,11 @@ label img {
    border-color: #ddd;
 }
 
-:checked + label:before {
+:checked + .img-label:before {
    content: '✓';
    background-color: grey;
    transform: scale(1);
+   z-index: 99999;
 }
 
 :checked + label img {

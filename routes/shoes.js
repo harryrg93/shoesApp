@@ -34,4 +34,6 @@ router
    )
    .delete(isLoggedIn, isAuthor, catchAsync(shoes.deleteShoes));
 
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(shoes.renderEdit));
+
 module.exports = router;
