@@ -10,6 +10,12 @@
 
             <div id="shoesCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
+                    <% if(!shoes.images.length) { %>
+                    <div class="carousel-item active">
+                        <img src="https://res.cloudinary.com/darkharg/image/upload/v1641498134/shoesApp/default-image_yrisqg.jpg"
+                            class="d-block w-100  card-img-top" alt="">
+                    </div>
+                    <% } %>
                     <% shoes.images.forEach((img, i) => {%>
                     <div class="carousel-item <%= i === 0 ? 'active' : '' %> ">
                         <img src="<%= img.url %>" class="d-block w-100  card-img-top" alt="">
@@ -30,12 +36,18 @@
 
             <div class="card-body">
                 <h5 class="card-title"><%= shoes.title %></h5>
+                <p class="card-text"><%= shoes.model %></p>
                 <p class="card-text"><%= shoes.description %></p>
+                <p class="text-muted">Categorías:
+                    <% for(let i of shoes.categories) {%>
+                    <span><%= i %></span><% if(shoes.categories[shoes.categories.length-1]!==i){ %> , <% } %>
+                    <% } %>
+                </p>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item text-muted"><%= shoes.location %></li>
-                <li class="list-group-item">Sumitted by <%= shoes.author.username %></li>
-                <li class="list-group-item">$<%= shoes.price %>*night</li>
+            <ul class="list-group list-group-flush ">
+                <li class="list-group-item text-primary">Sizes: <%= shoes.size %></li>
+                <li class="list-group-item text-primary">Price: C$ <%= shoes.price %></li>
+                <li class="list-group-item text-primary">Brand: <%= shoes.brand %></li>
             </ul>
             <% if( currentUser && shoes.author.equals(currentUser._id)) { %>
             <div class="card-body">
@@ -54,8 +66,11 @@
 
 
     <div class="col-6">
-        <% if(currentUser){ %>
         <h2>Leave a Review</h2>
+        <% if(currentUser == undefined){ %>
+        <p>Login for drop a review</p>
+        <% } %>
+        <% if(currentUser){ %>
         <form class="validated-form" action="/shoes/<%= shoes._id %>/reviews" method="POST" novalidate>
             <div class="mb-3">
                 <fieldset class="starability-basic">

@@ -76,3 +76,10 @@ module.exports.updateShoes = async (req, res) => {
    req.flash('success', 'Successfully updated campgorund');
    res.redirect(`/shoes/${shoes._id}`);
 };
+
+module.exports.deleteShoes = async (req, res) => {
+   const { id } = req.params;
+   await Shoes.findByIdAndDelete(id);
+   req.flash('success', 'Successfully deleted campground!');
+   res.redirect('/shoes');
+};

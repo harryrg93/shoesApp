@@ -86,6 +86,14 @@
                             Rest Shoes
                         </label>
                     </div>
+                    <div class="form-check">
+                        <input name="shoes[categories]" class="form-check-input" type="checkbox" value="shoes"
+                            id="cat-shoes" <% if (shoes.categories.includes('shoes')) { %> checked <% }%>>
+                        <label class="form-check-label" for="cat-shoes">
+                            Shoes
+                        </label>
+                    </div>
+
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Color(s)</label>
