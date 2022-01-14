@@ -19,7 +19,7 @@ module.exports.createShoes = async (req, res, next) => {
    }));
    shoes.author = req.user._id;
    await shoes.save();
-   req.flash('success', 'Successfully made a new campgorund');
+   req.flash('success', 'Successfully made a new shoes');
    res.redirect(`/shoes/${shoes._id}`);
 };
 
@@ -73,13 +73,13 @@ module.exports.updateShoes = async (req, res) => {
          $pull: { images: { filename: { $in: req.body.deleteImages } } }
       });
    }
-   req.flash('success', 'Successfully updated campgorund');
+   req.flash('success', 'Successfully updated shoes');
    res.redirect(`/shoes/${shoes._id}`);
 };
 
 module.exports.deleteShoes = async (req, res) => {
    const { id } = req.params;
    await Shoes.findByIdAndDelete(id);
-   req.flash('success', 'Successfully deleted campground!');
+   req.flash('success', 'Successfully deleted shoes!');
    res.redirect('/shoes');
 };

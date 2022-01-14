@@ -2,6 +2,7 @@ const { shoesSchema, reviewSchema } = require('../schemas.js');
 const ExpressError = require('../utils/ExpressError');
 const Shoes = require('../models/shoes');
 const Review = require('../models/review');
+const User = require('../models/user');
 
 module.exports.isLoggedIn = (req, res, next) => {
    const { id } = req.params;
@@ -35,9 +36,11 @@ module.exports.isAuthor = async (req, res, next) => {
 module.exports.isReviewAuthor = async (req, res, next) => {
    const { id, reviewId } = req.params;
    const review = await Review.findById(reviewId);
-   if (!review.author.equals(req.user._id)) {
+   const user = await User.findById(req.user.id);
+
+   if (!review.author.equals(req.user._id) && !user.admin) {
       req.flash('error', 'You need permission to do that!');
-      return res.redirect(`/campgrounds/${id}`);
+      return res.redirect(`/shoes/${id}`);
    }
    next();
 };
@@ -50,4 +53,14 @@ module.exports.validateReview = (req, res, next) => {
    } else {
       next();
    }
+};
+
+module.exports.isAdmin = async (req, res, next) => {
+   const { id } = req.params;
+   const user = await User.findById(req.user.id);
+   if (!user.admin) {
+      req.flash('error', 'You need permission to do that!');
+      return res.redirect(`/shoes/`);
+   }
+   next();
 };

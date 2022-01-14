@@ -13,12 +13,17 @@
         <li class="nav-item">
           <a class="nav-link" href="/shoes">Shoes</a>
         </li>
+        <% if(currentUser?.admin) { %>
         <li class="nav-item">
           <a class="nav-link" href="/shoes/new">New Shoes</a>
         </li>
+        <% } %>
       </ul>
 
       <div class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
         <% if (!currentUser) { %>
         <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>

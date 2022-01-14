@@ -49,7 +49,7 @@
                 <li class="list-group-item text-primary">Price: C$ <%= shoes.price %></li>
                 <li class="list-group-item text-primary">Brand: <%= shoes.brand %></li>
             </ul>
-            <% if( currentUser && shoes.author.equals(currentUser._id)) { %>
+            <% if( currentUser && currentUser.admin ) { %>
             <div class="card-body">
                 <a href="/shoes/<%=shoes._id%>/edit " class="card-link btn btn-info">Edit</a>
                 <form class="d-inline" action="/shoes/<%=shoes._id%>?_method=DELETE" method="POST">
@@ -105,13 +105,13 @@
                 <p class="starability-result" data-rating="<%= review.rating %>">
                     Rated: <%=review.rating%> stars
                 </p>
-                <!-- <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username %> </h6> -->
                 <p class="card-text">Review: <%= review.body%> </p>
-                <% if( currentUser && review.author.equals(currentUser._id)) { %>
+                <% if(currentUser && review?.author.equals(currentUser._id) || currentUser?.admin) { %>
                 <form action="/shoes/<%=shoes._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
                     <button class="btn btn-sm btn-danger">DELETE</button>
+
                 </form>
-                <% } %>
+                <% }%>
             </div>
         </div>
         <% } %>

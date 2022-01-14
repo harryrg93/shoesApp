@@ -84,10 +84,11 @@ const styleSrcUrls = [
    'https://stackpath.bootstrapcdn.com',
    'https://fonts.googleapis.com',
    'https://use.fontawesome.com',
-   'https://cdn.jsdelivr.net'
+   'https://cdn.jsdelivr.net',
+   'https://maxcdn.bootstrapcdn.com'
 ];
 const connectSrcUrls = [];
-const fontSrcUrls = [];
+const fontSrcUrls = ['https://maxcdn.bootstrapcdn.com'];
 app.use(
    helmet.contentSecurityPolicy({
       directives: {
@@ -135,6 +136,10 @@ app.use('/shoes/:id/reviews', reviewsRoutes);
 
 app.get('/', (req, res) => {
    res.render('home');
+});
+
+app.get('/contact', (req, res) => {
+   res.render('contact');
 });
 
 app.all('*', (req, res, next) => {
